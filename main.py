@@ -63,7 +63,13 @@ def exibir_relatorio(quantidades, valores, produto_mais_vendido, valor_total_ger
     print(f"Produto mais vendido: {produto_mais_vendido} ({quantidades[produto_mais_vendido]} unidades)")
 
 def main():
-    nome_arquivo = "vendas.csv"
+    if os.path.exists("Vendas.csv"):
+        nome_arquivo = "Vendas.csv"
+    elif os.path.exists("Vendas.txt"):
+        nome_arquivo = "Vendas.txt"
+    else:
+        print("Erro: Nenhum arquivo de vendas encontrado (Vendas.csv ou Vendas.txt).")
+        sys.exit(1)
     quantidades, valores = ler_arquivo_csv(nome_arquivo)
     produto_mais_vendido, valor_total_geral = calcular_resumo(quantidades, valores)
     exibir_relatorio(quantidades, valores, produto_mais_vendido, valor_total_geral)
